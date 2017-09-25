@@ -17,16 +17,20 @@ cmake_minimum_required ( VERSION 2.8.12 )
 # project
 project ( itw_rhino NONE )
 
-set ( ${PROJECT_NAME}_SRCDIR ${CMAKE_CURRENT_LIST_DIR}/../lookaside_rhino )
-set ( openjdk_TOOLS ${CMAKE_CURRENT_LIST_DIR}/../tools )
+set ( ${PROJECT_NAME}_SRCDIR ${OJDKBUILD_DIR}/lookaside/rhino )
 
-add_custom_target ( ${PROJECT_NAME} ALL
+configure_file (
+        ${CMAKE_CURRENT_LIST_DIR}/resources/run-ant.bat
+        ${CMAKE_CURRENT_BINARY_DIR}/run-ant.bat )
+
+add_custom_command ( OUTPUT js.jar
         COMMAND ${CMAKE_COMMAND} -E copy_directory
                 ${${PROJECT_NAME}_SRCDIR}
                 ${CMAKE_CURRENT_BINARY_DIR}
-        COMMAND ${openjdk_TOOLS}/ant182/bin/ant deepclean jar -Dno-xmlbeans=1
+        COMMAND cmd /c run-ant.bat
         COMMAND ${CMAKE_COMMAND} -E copy
                 build/rhino1_7R4/js.jar
                 js.jar
         WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
         COMMENT "Building rhino jar ..." )  
+add_custom_target ( ${PROJECT_NAME} DEPENDS js.jar )
