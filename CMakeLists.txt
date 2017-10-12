@@ -24,13 +24,9 @@ configure_file (
         ${CMAKE_CURRENT_BINARY_DIR}/run-ant.bat )
 
 add_custom_command ( OUTPUT js.jar
-        COMMAND ${CMAKE_COMMAND} -E copy_directory
-                ${${PROJECT_NAME}_SRCDIR}
-                ${CMAKE_CURRENT_BINARY_DIR}
+        COMMAND (robocopy ${${PROJECT_NAME}_SRCDIR} ${CMAKE_CURRENT_BINARY_DIR} /e ${openjdk_RBCFLAGS} ) ${openjdk_RBCPOSTFIX}
         COMMAND cmd /c run-ant.bat
-        COMMAND ${CMAKE_COMMAND} -E copy
-                build/rhino1_7R4/js.jar
-                js.jar
+        COMMAND (robocopy build/rhino1_7R4/ ${CMAKE_CURRENT_BINARY_DIR} js.jar ${openjdk_RBCFLAGS} ) ${openjdk_RBCPOSTFIX}
         WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
         COMMENT "Building rhino jar ..." )  
 add_custom_target ( ${PROJECT_NAME} DEPENDS js.jar )
