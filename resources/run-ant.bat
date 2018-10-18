@@ -17,4 +17,4 @@ rem limitations under the License.
 @echo on
 
 set JAVA_HOME=${icedtea_web_ITW_JAVA_HOME}
-${openjdk_TOOLS}/ant182/bin/ant deepclean jar -Dno-xmlbeans=1
+${OJDKBUILD_DIR}/tools/ant182/bin/ant deepclean jar -Dno-xmlbeans=1
