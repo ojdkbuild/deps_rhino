@@ -30,4 +30,6 @@ add_custom_command ( OUTPUT js.jar
         WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
         COMMENT "Building rhino jar ..." )  
 add_custom_target ( ${PROJECT_NAME} DEPENDS js.jar )
-add_dependencies ( ${PROJECT_NAME} image )
+if ( NOT icedtea_web_ENABLE_STANDALONE )
+    add_dependencies ( ${PROJECT_NAME} image )
+endif ( )
