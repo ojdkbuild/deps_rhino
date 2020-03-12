@@ -17,4 +17,5 @@ rem limitations under the License.
 @echo on
 
 set JAVA_HOME=${openjdk_BOOT_JDK}
+set ANT_HOME=${OJDKBUILD_DIR}/tools/ant182
 %*
